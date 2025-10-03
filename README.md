@@ -1,5 +1,7 @@
 # Datomic Cloud with Polylith
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/svenlaater/datomic-cloud-with-polylith/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/svenlaater/datomic-cloud-with-polylith/tree/main)
+
 Example [monorepo][monorepo] setup for a Clojure development stack. It's primary
 purpose is to demonstrate how [Polylith][polylith] and CircleCI can be used to
 set up and deploy a Datomic Cloud System in one or more AWS accounts. Includes
@@ -25,6 +27,7 @@ is familiar and comfortable with.
 - [Babashka][babashka]
 - [AWS CLI][aws-cli]
 - [AWS SAM CLI][sam-cli]
+- [CircleCI account][circleci]
 
 ## Development
 
@@ -43,12 +46,23 @@ with your running application.
 
 ## Deployment
 
+The project uses CircleCI's [dynamic configuration][circleci-dynamic] with
+path filtering to run only relevant workflows when code changes. The setup job
+in `.circleci/config.yml` detects which project directories (babashka, clojure,
+infra) have changes and generates a configuration that includes only the
+affected project's workflow. Each project has its own `.circleci/config.yml`
+that defines project-specific workflows, which reference shared jobs from
+`.circleci/common/`. When no relevant changes are detected, CircleCI runs the
+no-op workflow defined in `no-updates.yml`.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 for details.
 
 ## References
+
+- https://circleci.com/docs/guides/orchestrate/using-dynamic-configuration/
 
 [monorepo]: https://en.wikipedia.org/wiki/Monorepo
 [polylith]: https://polylith.gitbook.io/
@@ -60,3 +74,5 @@ for details.
 [aws-cli]: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 [sam-cli]: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html
 [clojure-mcp]: https://github.com/bhauman/clojure-mcp
+[circleci-dynamic]: https://circleci.com/docs/dynamic-config/
+[circleci]: https://circleci.com/signup/

@@ -1,0 +1,108 @@
+version: 2.1
+
+setup: true
+
+parameters:
+  always-continue:
+    type: boolean
+    default: false
+  build-babashka:
+    type: boolean
+    default: false
+  build-clojure:
+    type: boolean
+    default: false
+  build-infra-aws:
+    type: boolean
+    default: false
+
+orbs:
+  path-filtering: circleci/path-filtering@2.0.4
+  circleci-cli: circleci/circleci-cli@0.1.9
+  continuation: circleci/continuation@2.0.1
+
+
+references:
+  base_config: &base_config
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+  # This is the same as shared___restore-repo command
+  restore-repo: &restore-repo
+    restore_cache:
+      keys:
+        - v1-repo-{{ .Branch }}-{{ .Revision }}
+        - v1-repo-{{ .Branch }}
+        - v1-repo
+
+jobs:
+
+  checkout:
+    <<: *base_config
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  list-circleci-config-files:
+    <<: *base_config
+    resource_class: small
+    steps:
+      - *restore-repo
+      - run:
+          name: List all circleci configuration files.
+          command:  |
+            find . -type d \
+            -name ".circleci" \
+            -prune -exec find {} \
+            -type f -name "*.yml" \; 2>/dev/null | grep -v "/node_modules/"
+
+  setup:
+    executor:
+      name: path-filtering/default
+    steps:
+      - *restore-repo
+      - circleci-cli/install
+      - run:
+          name: Generate shared configuration
+          command: |
+            circleci config pack .circleci/shared >> .circleci/shared-config.yml
+      - run:
+          name: Print shared configuration for debbuging
+          command: |
+            cat .circleci/shared-config.yml
+      - path-filtering/set-parameters:
+          base-revision: main
+          config-path: .circleci/no-updates.yml
+          mapping: |
+            .* always-continue true .circleci/shared-config.yml
+
+            # NB! every new build-* has to be added to .circleci/shared/parameters.yml
+            babashka/.* build-babashka true babashka/.circleci/config.yml
+            clojure/.* build-clojure true clojure/.circleci/config.yml
+            infra/aws/.*  build-infra-aws true infra/aws/.circleci/config.yml
+      - path-filtering/generate-config
+      - run:
+          name: Print and validate generated configuration
+          command: |
+            cat /tmp/generated-config.yml
+            circleci config validate /tmp/generated-config.yml
+      - continuation/continue:
+          configuration_path: /tmp/generated-config.yml
+          parameters: /tmp/pipeline-parameters.json
+      - store_artifacts:
+          path: /tmp/
+
+workflows:
+  datomic-cloud-with-polylith:
+    jobs:
+      - checkout
+      - list-circleci-config-files:
+          requires:
+            - checkout
+      - setup:
+          requires:
+            - checkout

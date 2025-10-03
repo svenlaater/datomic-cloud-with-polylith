@@ -1,0 +1,7 @@
+version: 2.1
+
+workflows:
+  clojure:
+    jobs:
+      - common__blank:
+          name: clojure__blank

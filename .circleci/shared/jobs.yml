@@ -1,0 +1,11 @@
+jobs:
+
+  shared__blank:
+    executor:
+      name: shared__base
+    steps:
+      - shared__restore-repo
+      - run:
+          name: This just makes a bang!
+          command: |
+            echo "OK"

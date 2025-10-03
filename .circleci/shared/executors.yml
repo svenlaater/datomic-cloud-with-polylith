@@ -1,0 +1,6 @@
+executors:
+
+  shared__base:
+    docker:
+      - image: cimg/base:2025.07-24.04
+    resource_class: small

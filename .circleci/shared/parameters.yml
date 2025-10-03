@@ -1,0 +1,13 @@
+parameters:
+  always-continue:
+    type: boolean
+    default: false
+  build-babashka:
+    type: boolean
+    default: false
+  build-clojure:
+    type: boolean
+    default: false
+  build-infra-aws:
+    type: boolean
+    default: false

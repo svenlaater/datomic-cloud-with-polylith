@@ -1,0 +1,7 @@
+version: 2.1
+
+workflows:
+  infra:
+    jobs:
+      - common__blank:
+          name: infra__blank
