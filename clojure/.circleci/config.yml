@@ -3,5 +3,15 @@ version: 2.1
 workflows:
   clojure:
     jobs:
-      - common__blank:
-          name: clojure__blank
+      - shared__clj-lint:
+          name: clojure__clj-lint__<<matrix.alias>>
+          matrix:
+            parameters:
+              alias:
+                - cljfmt/check
+                - clj-kondo .
+                - splint
+          project: clojure
+      - shared__antq:
+          name: clojure__antq
+          project: clojure

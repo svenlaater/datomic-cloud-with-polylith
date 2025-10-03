@@ -1,0 +1,4 @@
+{:parallel? true
+ :paths []
+ :remove-consecutive-blank-lines? true
+ :remove-trailing-whitespace? true}

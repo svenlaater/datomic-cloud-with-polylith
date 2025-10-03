@@ -3,5 +3,9 @@ version: 2.1
 workflows:
   babashka:
     jobs:
-      - common__blank:
-          name: babashka__blank
+      - shared__clj-lint:
+          name: babashka__clj-lint__<<matrix.alias>>
+          matrix:
+            parameters:
+              alias: [cljfmt/check, 'clj-kondo .', splint]
+          project: babashka

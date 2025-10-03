@@ -1,5 +1,22 @@
 jobs:
 
+  shared__antq:
+    executor:
+      name: shared__clojure
+    parameters:
+      project:
+        type: string
+    steps:
+      - shared__restore-repo
+      - run:
+          environment:
+            # Antq jobs tend to time out.
+            ANTQ_DEFAULT_TIMEOUT: 20000
+          name: Check project for outdated dependencies.
+          command: |
+            cd <<parameters.project>>
+            ANTQ_DEFAULT_TIMEOUT=20000 clojure -M:antq || true
+
   shared__blank:
     executor:
       name: shared__base
@@ -9,3 +26,19 @@ jobs:
           name: This just makes a bang!
           command: |
             echo "OK"
+
+  shared__clj-lint:
+    executor:
+      name: shared__clojure
+    parameters:
+      alias:
+        type: string
+      project:
+        type: string
+    steps:
+      - shared__restore-repo
+      - run:
+          name: Run Clojure linter -  <<parameters.alias>>
+          command: |
+            cd <<parameters.project>>
+            clojure -M:<<parameters.alias>>
