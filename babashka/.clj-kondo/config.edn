@@ -1,0 +1,4 @@
+{:config-paths ["src"]
+ :linters
+ {:refer-all {:exclude [clojure.test]}
+  :unsorted-required-namespaces {:level :error}}}
