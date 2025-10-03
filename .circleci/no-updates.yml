@@ -1,0 +1,13 @@
+version: 2.1
+
+jobs:
+  no-updates:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo "No updates have been made"
+
+workflows:
+  no-update-workflow:
+    jobs:
+      - no-updates

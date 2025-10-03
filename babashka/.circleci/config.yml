@@ -1,0 +1,7 @@
+version: 2.1
+
+workflows:
+  babashka:
+    jobs:
+      - common__blank:
+          name: babashka__blank
