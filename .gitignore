@@ -1,0 +1,50 @@
+# AWS (CLI, SAM etc.)
+.aws-sam/
+
+# CIDER
+.cider-repl-history
+
+# Clojure(Script)
+.lsp
+/clojure-lsp*
+.cpcache/
+*/.clj-kondo/.cache
+.clj-kondo/.cache
+*/.clj-kondo/imports
+.clojure-mcp/
+.nrepl*
+.eastwood
+
+# Datomic
+.rebl/
+.datomic-ions
+
+# EMACS/CIDER
+*~
+\#*\#
+.\#*
+
+# IntelliJ/Cursive
+.idea/
+*.iml
+
+# JVM
+target/
+target/*
+classes/*
+
+# Node/NPM
+dist
+node_modules/
+.npm cache
+npm-debug.log*
+
+# OSX
+.DS_Store
+
+# VSCode/Calva
+.calva
+.vscode/settings.json
+.calva
+output.calva-repl
+**/.calva/repl.calva-repl
