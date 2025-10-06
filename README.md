@@ -2,23 +2,22 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/svenlaater/datomic-cloud-with-polylith/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/svenlaater/datomic-cloud-with-polylith/tree/main)
 
-Example [monorepo][monorepo] setup for a Clojure development stack. It's primary
+Example [monorepo][monorepo] setup for a Clojure development stack. Its primary
 purpose is to demonstrate how [Polylith][polylith] and CircleCI can be used to
 set up and deploy a Datomic Cloud System in one or more AWS accounts. Includes
-babashka project for tooling and infra project for deploying
-[Infrastructure as Code][iac] using [AWS SAM CLI][sam-cli].
-
-> **Disclaimer**: This is not THE WAY to setup a project. It is an opinionated
-approach implemented at [Builderhead][builderhead] using tools that the author
-is familiar and comfortable with.
+babashka project for tooling and infra project for deploying required
+infrastructure.
 
 ## Structure
 
 - [babashka](babashka/README.md) - Babashka-based tooling and scripts.
 - [clojure](clojure/README.md) - Clojure application code.
--  - Infrastructure as code.
+- [infra](infra/README.md) - scripts for deploying infrastructure.
 
 ## Getting Started
+
+Ensure that all prerequisites have been met and then head over to
+[infra](infra/README.md) project to setup a Datomic Cloud System.
 
 ### Prerequisites
 
@@ -26,8 +25,8 @@ is familiar and comfortable with.
 - [Clojure][clojure]
 - [Babashka][babashka]
 - [AWS CLI][aws-cli]
-- [AWS SAM CLI][sam-cli]
 - [CircleCI account][circleci]
+- [AWS account][aws]
 
 ## Development
 
@@ -66,8 +65,7 @@ for details.
 
 [monorepo]: https://en.wikipedia.org/wiki/Monorepo
 [polylith]: https://polylith.gitbook.io/
-[iac]: https://en.wikipedia.org/wiki/Infrastructure_as_code
-[builderhead]: https://www.builderhead.com
+[aws]: https://aws.amazon.com/free/
 [java]: https://www.oracle.com/java/technologies/downloads/
 [clojure]: https://clojure.org/guides/install_clojure
 [babashka]: https://github.com/babashka/babashka#installation
