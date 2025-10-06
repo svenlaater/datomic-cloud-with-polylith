@@ -1,4 +1,15 @@
-{:config-paths ["src"]
+{:config-in-ns
+ {tests {:ignore [:consistent-alias]}}
+
+ :config-paths ["src"]
+
  :linters
- {:refer-all {:exclude [clojure.test]}
-  :unsorted-required-namespaces {:level :error}}}
+ {:consistent-alias
+  {:aliases {platform.clojure.user user
+             platform.clojure.utils u
+             platform.clojure.test-utils tu}}
+  :refer-all {:exclude [clojure.test]}
+  :unsorted-required-namespaces {:level :error}}
+
+ :ns-groups [{:filename-pattern "_test.clj" :name tests}]
+ :output {:exclude-files ["^./development"]}}

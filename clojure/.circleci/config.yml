@@ -1,5 +1,35 @@
 version: 2.1
 
+jobs:
+  clojure__polylith-validate:
+    executor:
+      name: shared__clojure
+    parameters:
+      cmd:
+        type: string
+    steps:
+      - shared__restore-repo
+      - run:
+          name: Polylith <<parameters.cmd>>
+          command: |
+            cd clojure
+            clojure -M:poly <<parameters.cmd>>
+
+  clojure__polylith-test-project:
+    executor:
+      name: shared__clojure
+    resource_class: large
+    parameters:
+      project:
+        type: string
+    steps:
+      - shared__restore-repo
+      - run:
+          name: Polylith test <<parameters.project>> project
+          command: |
+            cd clojure
+            clojure -M:poly test :project project:<<parameters.project>>
+
 workflows:
   clojure:
     jobs:
@@ -15,3 +45,21 @@ workflows:
       - shared__antq:
           name: clojure__antq
           project: clojure
+      - clojure__polylith-validate:
+          name: clojure__polylith-validate__<<matrix.cmd>>
+          matrix:
+            parameters:
+              cmd:
+                - check
+                - info
+      - clojure__polylith-test-project:
+          name: clojure__polylith-test-project__<<matrix.project>>
+          matrix:
+            parameters:
+              project: [dev]
+          requires:
+            - clojure__clj-lint__clj-kondo .
+            - clojure__clj-lint__cljfmt/check
+            - clojure__clj-lint__splint
+            - clojure__polylith-validate__check
+            - clojure__polylith-validate__info

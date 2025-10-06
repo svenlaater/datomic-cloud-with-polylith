@@ -12,5 +12,19 @@
   :cljfmt/fix {:extra-deps {dev.weavejester/cljfmt {:mvn/version "0.13.3"}}
                :main-opts ["-m" "cljfmt.main" "fix"]}
 
+  :dev {:extra-paths ["development/src"]
+        :extra-deps {criterium/criterium {:mvn/version "0.4.6"}
+                     io.github.tonsky/clj-reload {:mvn/version "1.0.0"}
+                     org.clojure/clojure {:mvn/version "1.12.2"}
+
+                     poly/user {:local/root "components/user"}
+                     poly/utils {:local/root "components/utils"}
+                     poly/test-utils {:local/root "components/test-utils"}}}
+
+  :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+         :extra-deps {polylith/clj-poly {:mvn/version "0.3.0"}}}
+
   :splint {:extra-deps {io.github.noahtheduke/splint {:mvn/version "1.21.0"}}
-           :main-opts ["-m" "noahtheduke.splint"]}}}
+           :main-opts ["-m" "noahtheduke.splint"]}
+
+  :test {:extra-paths []}}}

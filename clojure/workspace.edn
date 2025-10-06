@@ -1,0 +1,18 @@
+{:top-namespace "platform.clojure"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :dialects ["clj"]
+ :compact-views #{}
+ :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
+ :vcs {:name "git"
+       :auto-add false}
+
+ :tag-patterns {:stable "^stable-.*"
+                :release "^v[0-9].*"}
+
+ :test {:setup-fn platform.clojure.test-utils.interface/setup}
+
+ :template-data {:clojure-ver "1.12.2"}
+
+ :projects
+ {"development" {:alias "dev"}}}
