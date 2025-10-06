@@ -1,0 +1,5 @@
+{:allow []
+ :http-direct {:handler-fn platform.clojure.graphql-api.service/handler}
+ :app-name "platform"
+ :xforms [clojure.core/first
+          clojure.core/not]}

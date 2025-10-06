@@ -1,0 +1,10 @@
+{:paths ["resources/ions-graphql-api"]
+ :deps {org.clojure/clojure{:mvn/version "1.12.0"}
+
+        poly/graphql-api {:local/root "../../bases/graphql-api"}
+        poly/user {:local/root "../../components/users"}
+        poly/utils {:local/root "../../components/utils"}}
+
+ :aliases
+ {:test {:extra-paths ["test" "resources"]
+         :extra-deps {poly/test-utils {:local/root "../../components/test-utils"}}}}}

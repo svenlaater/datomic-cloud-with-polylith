@@ -15,4 +15,10 @@
  :template-data {:clojure-ver "1.12.2"}
 
  :projects
- {"development" {:alias "dev"}}}
+ {"development" {:alias "dev"}
+  "ions-compute" {:alias "compute"
+                  :necessary [;; Required for setup-fn
+                              "test-utils"]}
+  "ions-graphql-api" {:alias "graphql-api"
+                      :necessary [;; Required for setup-fn
+                                  "test-utils"]}}}

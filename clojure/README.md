@@ -1,6 +1,7 @@
 # Clojure
 
-Clojure application code using [Polylith][polylith] architecture.
+Clojure application code using [Polylith][polylith] architecture deployed as
+[Datomic Ions][ions].
 
 ## Prerequisites
 
@@ -68,12 +69,19 @@ Start the poly tool `clj -M:poly`
 
 ```sh
 # Run tests for development project
-test :dev
-```
+clojure$ test :dev
 
+# Run all tests for all the projects.
+clojure$ test :project :all
+
+# Run tests for an individual project
+clojure$ test :project project:ions-compute
+clojure$ test :project project:ions-graphql-api
+```
 
 ## References
 
 [java]: https://www.oracle.com/java/technologies/downloads/
 [clojure]: https://clojure.org/guides/install_clojure
 [polylith]: https://polylith.gitbook.io/
+[ions]: https://docs.datomic.com/ions/ions.html

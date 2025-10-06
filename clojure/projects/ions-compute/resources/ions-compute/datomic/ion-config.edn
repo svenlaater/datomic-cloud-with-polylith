@@ -1,0 +1,3 @@
+{:allow [clojure.core/true?]
+ :app-name "platform"
+ :xforms []}

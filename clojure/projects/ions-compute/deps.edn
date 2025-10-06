@@ -1,0 +1,6 @@
+{:paths ["resources/ions-compute"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.2"}}
+
+ :aliases
+ {:test {:extra-paths ["test" "resources"]
+         :extra-deps {poly/test-utils {:local/root "../../components/test-utils"}}}}}

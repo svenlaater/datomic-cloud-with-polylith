@@ -56,7 +56,7 @@ workflows:
           name: clojure__polylith-test-project__<<matrix.project>>
           matrix:
             parameters:
-              project: [dev]
+              project: [ions-compute, ions-graphql-api]
           requires:
             - clojure__clj-lint__clj-kondo .
             - clojure__clj-lint__cljfmt/check
